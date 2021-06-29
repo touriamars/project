@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+ {% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_user">Gestion Des Administrateurs</a>
+                                            </li>
+                                           
+
+                                            {% endblock %}
+{% block page_contents %}
+<div class="card">
+
+
+                                                    <div class="card-block">
+
+  <div class="form-material">
+    {{ form_start(form, {label_attr: {class: 'form-material'} }) }}
+
+  <div class="form-group form-default" style='margin-top:20px'>
+                                                                {{form_widget(form.nom_prenom)}}
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Nom et Prenom</label>
+                                                            </div> <div class="form-group form-default" style='margin-top:20px'>
+                                                                {{form_widget(form.email)}}
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Email</label>
+                                                            </div> <div class="form-group form-default" style='margin-top:20px'>
+                                                                {{form_widget(form.password)}}
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Mot de passe</label>
+                                                            </div> <div class="form-group form-default" style='margin-top:20px'>
+                                                                {{form_widget(form.tele)}}
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Telephone</label>
+                                                            </div><div class="form-group form-default" style='margin-left:20px'>
+                                                                {{form_widget(form.ROLES)}}
+                                                                <span class="form-bar"></span>
+                                                              
+                                                            </div>
+                                                            {{ form_end(form) }} 
+
+   </div>
+
+</div></div>
+{% endblock  %}

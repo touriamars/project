@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block page_contents %}
+  <div class="card" style='width:2000000;'>
+                                           
+                             <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <div class="card">
+                            <div class="card-body profile-card">
+                                <center class="mt-4"> <img src="/uploads/{{adherent.image}}"
+                                        class="rounded-circle" width="150" />
+                                   
+                                </center>
+                                <div>
+                                 <center class="mt-4">
+                                {{adherent.nomfrancais  ~  ' '  ~  adherent.prenomfrancais}}
+                                 </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-12" >
+                        <div class="card"  >
+                            <div class="card-body">
+                          <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">la date</th>
+ <th scope="row">Groupe</th>
+       <th scope="row">Tranche d'age</th>
+         <th scope="col">type de revenu</th>
+             <th scope="row">Mensualité</th>
+       <th scope="row">Date d'inscription</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for paiement in  paiements %}
+   <tr>
+   {% if paiement.datedebut == paiement.datefin %}
+    <td scope="col">{{paiement.datedebut | date("d/m/Y") }}</td>
+
+{% else %}
+  <td scope="col">{{paiement.datedebut | date("d/m/Y")  ~ ' à '  ~  paiement.datefin | date("d/m/Y") }}</td>
+{% endif %}
+
+
+     
+     <td scope="col">{{groupe.lib}}</td>
+       <td scope="col">{{adherent.age}}</td>
+       <td scope="col">{{paiement.typerevenu}}</td>
+        <td scope="col">{{paiement.montantpaye}}</td>
+          <td scope="col">{{adherent.dateinscription |date("d/m/Y")}}</td>
+      
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                </div>            
+                                        </div>
+                                        {% endblock  %}

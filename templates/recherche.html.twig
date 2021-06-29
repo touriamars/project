@@ -1,0 +1,221 @@
+
+
+{% extends 'base.html.twig' %}
+
+ 
+  {% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_fournisseur">Gestion Des Fournisseur</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="">Paiement de commande</a>
+                                            </li>
+
+                                            {% endblock %}
+
+
+{% block page_contents %}
+    <!-- Pre-loader end -->
+  
+                         
+                                        <div class="card">
+                                            <div class="card-header"> 
+                                               <form method='POST'>
+                                               <div class='row'>
+                                               <div class='col-3'> 
+<input type='date' name='date_debut' value='{{ date_debut |date('Y-m-d') }}' class="form-control">
+</div>
+ <div class='col-3'>
+<input type='date' name='date_fin' value='{{ date_fin |date('Y-m-d') }}' class="form-control">
+</div>
+<div class='col-3'>
+<input type ='submit' name='ok' value='recherche' class="form-control">
+</div>
+ </div>
+</form>
+                                               
+                                                <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                        <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                        <li><i class="fa fa-minus minimize-card"></i></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                    
+                        <th>Libelle</th>
+                         <th>Quantite</th>
+                        <th>Prix d'Achat HT</th>
+                        <th>Prix d'achat TTC</th>
+                        <th>TVA</th>
+                        <th>Total Ht</th>
+                        <th>TotalTCC</th>
+                 
+                    </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% set tva = 0 %}
+                                                        {% set ttc = 0 %}
+                                                        {% set ht = 0 %}
+                                                           {% for commande in commandes %}
+                                                            <tr style="height:30px;" >
+                                                               
+                        <td>{{commande.lib}}</td>
+                           <td>{{commande.quantite}}</td>
+                        <td>{{commande.prix_ht}}</td>
+                        <td>{{ commande.prix_ttc}}</td>
+                        
+                          <td>{{ commande.tva}}</td>
+                             <td>{{ commande.prix_ht * commande.quantite}}</td>
+                                <td>{{ commande.total}}</td>
+                        
+                       
+
+                                                            </tr>
+                                                              {% set tva =+ commande.prix_ht * commande.quantite*commande.tva /100 %}
+                                                        {% set ttc =+ commande.total %}
+                                                        {% set ht  =+ commande.prix_ht * commande.quantite %}
+
+                                                             {% endfor %}
+                                                        </tbody>
+                                                    </table>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                           {% if commandes %}
+                                   <div class="card">
+                                            <div class="card-header"> 
+                                               <form method='POST'>
+                                              
+                                               
+                                                <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                        <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                        <li><i class="fa fa-minus minimize-card"></i></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-block ">
+                                                <div class="">
+                                                 <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Total HT</label>
+                                                                <div class="col-sm-4">
+                                                                  <input type='text' value='{{ht}}' class='form-control' readonly>
+                                                                </div>
+
+
+                                                </div>
+                                                 <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Total TVA</label>
+                                                                <div class="col-sm-4">
+                                                                  <input type='text' value='{{tva}}'  class='form-control' readonly>
+                                                                </div>
+
+
+                                                </div>
+                                                   <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Total TTC</label>
+                                                                <div class="col-sm-4">
+                                                                  <input type='text' value='{{ttc}}'  class='form-control' readonly>
+                                                                </div>
+
+
+                                                </div>
+                                                   <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Mode</label>
+                                                                <div class="form-check form-check-inline" style='margin-left:20px'>
+   <label class="form-check-label" for="inlineRadio1">Espése</label>                                                             
+  <input
+    class="form-check-input"
+    type="radio"
+    name="mode"
+    id="inlineRadio1"
+    value="espese"
+    style='margin-left:20px'
+  />
+
+</div>
+
+<div class="form-check form-check-inline" >
+ <label class="form-check-label" for="inlineRadio2">Chéque</label>
+  <input
+    class="form-check-input"
+    type="radio"
+    name="mode"
+    id="inlineRadio2"
+    value="cheque"
+    style='margin-left:20px'
+  />
+  
+</div>
+
+<div class="form-check form-check-inline" style='margin-left:20px'>
+ <label class="form-check-label" for="inlineRadio3">Virement</label>
+  <input
+    class="form-check-input"
+    type="radio"
+    name="mode"
+    id="inlineRadio3"
+    value="virement"
+    style='margin-left:20px'
+  
+  />
+ 
+</div>
+                                                               
+
+
+                                                </div>
+<input type="submit" class="btn btn-primary" name='valider' value="valider">
+</form>
+                                                  
+                                            </div>
+                                        </div>
+                                           {% endif %}
+        {% endblock  %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

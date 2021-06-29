@@ -1,0 +1,120 @@
+
+{% extends 'base.html.twig' %}
+
+ 
+{% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_groupe">Gestion des Groupes</a>
+                                            </li> <li class="breadcrumb-item"><a href="">List Abseance de groupe {{groupe}}</a>
+                                            </li>
+                                           
+
+                                            {% endblock %}
+
+
+{% block page_contents %}
+   
+
+    
+           
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+
+               
+
+ <div class="card-block" style='background-Color:white; >
+ <form id='myForm' method='post'>
+
+ <div class="form-group row">
+  <label for="example-week-input" class="col-2 col-form-label">Seance</label>
+  <div class="col-10">
+  <form id='form' method='post'>
+
+<select id='s' name='id' class="form-control" onchange="submit()">
+{% if id %}
+{% for seance in seances %}
+{% if id==seance.id %}
+
+
+<option value="{{seance.id}}" >{{seance.date|date('y/m/d')}}</option>
+
+
+ {% endif %}
+{% endfor %}
+{% for seance in seances %}
+
+{% if id==seance.id %}
+
+
+    {% else %}
+<option value="{{seance.id}}" >{{seance.date|date('y/m/d')}}</option>
+
+ {% endif %}
+
+
+
+ 
+{% endfor %}
+    <option value='{{id}}'></option>
+    {% else %}
+    <option value=''></option>
+    {% for seance in seances %}
+
+
+<option value="{{seance.id}}" >{{seance.date|date('y/m/d')}}</option>
+
+
+ 
+{% endfor %}
+
+{% endif %}
+
+
+
+</select> 
+</form> </div>
+
+  </form>
+</div>
+        <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Matricule</th>
+ <th scope="row">Groupe</th>
+       <th scope="row">Nom et Prenom En Francais</th>
+         
+             <th scope="row">Nom et Prenom En Arabe</th>
+       <th scope="row">Absence</th>
+    </tr>
+  </thead>
+  <tbody>
+     {% for absence in  absences %} <tr>
+ <td scope="col">{{absence.idadherent}}</td>
+       <th scope="row">{{groupe}}</th>
+      {% for adherent in  adherents %}
+           {% if adherent.id == absence.idadherent %}
+  
+
+     
+                                  <td>{{ adherent.nomfrancais ~ ' ' ~ adherent.prenomfrancais}}</td>
+                        <td>{{adherent.nomarab  ~ ' ' ~ adherent.prenomarab}}</td>  
+                         {% endif %}
+     {% endfor %}
+     <td scope="col">{{absence.etat}}</td>
+      
+      
+    </tr>
+  
+   {% endfor %}
+  </tbody>
+</table>
+
+                                                </div>
+                                                </div>  </div>
+                                                </div>
+
+                                                {% endblock %}                                  
+                               

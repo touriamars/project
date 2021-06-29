@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block page_contents %}
+
+  <div style='background-Color:white;margin-left:-30px; width:1300px ' class='container-fluid'>
+                                           
+                        
+                    <!-- Column -->
+                 
+
+                   <div>
+ 
+  <div class='container-fluid'>
+    <div class='col col-xxl' style=' margin-top=10px'>
+      <div class="row" >
+
+     <label style='margin-top:40px;width:100px'> lundi</label>
+   
+         {% for seance in seances %}
+
+         {% if seance.jour=='lundi' %}
+          {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div class="col" style="background-Color:{{groupe.color}}" >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib}}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+       {% endif %}
+        {% endfor %}
+         </div>
+  
+   <hr>
+  </div> 
+
+  <div class='col-12'>
+     <div class="row" >
+     <label style=' width:100px'> mardi</label>
+         {% for seance in seances %}
+         {% if seance.jour=='mardi' %}
+       {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div class="col-2" style="background-Color:{{groupe.color}}" >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib}}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+      
+  
+       {% endif %}
+        {% endfor %}
+          </div >
+  <hr>
+  
+  </div>
+    <div class='col-12'>
+     <div class="row" >
+     <label style='width:100px'>mercredi</label>
+         {% for seance in seances %}
+         {% if seance.jour=='mercredi' %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div class="col-2" style="background-Color:{{groupe.color}}" >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib}}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+
+       {% endif %}
+        {% endfor %}
+        </div>
+  
+ <hr>
+  </div> 
+
+  <div class='col-12'>
+   <div class="row" >
+     <label style=' width:100px'>Jeudi</label>
+         {% for seance in seances %}
+         {% if seance.jour=='jeudi' %}
+     
+            {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div class="col"  style="background-Color:{{groupe.color}}" >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib}}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+       {% endif %}
+        {% endfor %}
+         </div>
+  <hr>
+  
+  </div>
+    <div class='col-12'>
+      <div class="row" >
+
+     <label style='width:100px'>Vendredi</label>
+   
+         {% for seance in seances %}
+         {% if seance.jour=='vendredi' %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div class="col" style="background-Color:{{groupe.color}}" >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib}}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+  
+       {% endif %}
+        {% endfor %}
+         </div>
+  <hr>
+  </div> 
+
+  <div class='col-12'>
+     <div class="row" >
+
+     <label style='width:100px'>Samedi</label>
+   
+         {% for seance in seances %}
+         {% if seance.jour=='samedi' %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div class="col" style="background-Color:{{groupe.color}}" >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib}}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+
+    
+  
+       {% endif %}
+        {% endfor %}
+         </div>
+  <hr>
+  
+  </div>
+    <div class='col-12'>
+    <div class='col col-xxl' style=' margin-top=10px'>
+      <div class="row" >
+<label style='width:100px'>Dimanche</label>
+   
+         {% for seance in seances %}
+         {% if seance.jour=='dimanche' %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div class="col" style="background-Color:{{groupe.color}}">{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib}}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+    
+  
+       {% endif %}
+        {% endfor %}
+         </div>
+  <hr>
+  </div> 
+
+  
+</div>
+
+                       
+                        </div>
+                      
+                        {% endblock %}

@@ -1,0 +1,46 @@
+
+
+
+{% extends 'base.html.twig' %}
+
+ {% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_groupe">Gestion des Groupes</a>
+                                            </li> <li class="breadcrumb-item"><a href="">Affecter des Adherent à groupe {{lib}}</a>
+                                            </li>
+                                           
+
+                                            {% endblock %}
+
+
+
+{% block page_contents %}
+ <div class="row">
+  <div class="col-md-12">
+  <div class="card">
+
+ 
+                                                    <div class="card-block">
+<form method="POST" action="{{path('affectation',{id : id})}}">
+  
+
+  {% for user in groupe %}
+     <div class="form-check">
+  <label class="form-check-label">
+    <div class="form-check">
+    <input type="checkbox" onclick="myFunction1({{user.id}},{{limit}})" class="form-check-input" id='{{user.id}}' value="{{user.id}}" name="utulisateur[]"> {{user.nomfrancais ~ ' ' ~  user.prenomfrancais}}
+  </label> </div>
+</div>
+    {% endfor %}
+
+
+
+
+<input type="submit" name='ok' value='Affecter' class='btn btn-primary'>
+
+
+ </form>
+ </div> </div> </div></div>
+{% endblock %}

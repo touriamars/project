@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+ 
+  {% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="">comptabilité</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_commande">Gestion des commandes</a>
+                                            </li>
+
+                                            {% endblock %}
+
+
+{% block page_contents %}
+    <!-- Pre-loader end -->
+  
+                            <!-- Main-body start -->
+                           
+                                    <!-- Page-body start -->
+                                  
+                                        <!-- Basic table card start -->
+                                        
+
+                                        <!-- Basic table card end -->
+                                        <!-- Inverse table card start -->
+                                       
+                                        <!-- Inverse table card end -->
+                                        <!-- Hover table card start -->
+                                       
+                                        <!-- Hover table card end -->
+                                        <!-- Contextual classes table starts -->
+                                        <div class="card">
+                                            <div class="card-header"> 
+                                               
+                                                <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                        <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                        <li><i class="fa fa-minus minimize-card"></i></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                       
+                        <th>Libelle</th>
+                        <th>Prix d'Achat HT</th>
+                        <th>TVA</th>
+                    
+                        <th>Fournisseur</th>
+                        <th>Prix Tolat</th>
+                        <th>Actions</th>
+                    </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                           {% for commande in commandes %}
+                                                            <tr style="height:30px;" >
+                                                               
+                        <td>{{ commande.lib}}</td>
+                        <td>{{commande.prix_ht}}</td>
+                        <td>{{ commande.tva}}</td>
+                    
+                         
+                        <td>{{commande.societe}}</td>
+                        
+                      
+                       
+                       <td>{{commande.prix}}</td>
+                       <td>
+                        {% if commande.paye== false %}
+                        <a href="{{path('modifier_produit',{id : commande.id}) }}" onclick="myFunction('modifier_commande',{{commande.id_p}},{{commande.id}})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        {% endif %}
+                          {% if commande.paye== true %}
+                            <a href="{{path('delete_fournisseur',{id : commande.id}) }}" onclick="myFunction('delete_commande',{{commande.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            {% endif %}
+                        </td>
+
+                                                            </tr>
+
+                                                             {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Contextual classes table ends -->
+                         
+        {% endblock  %}

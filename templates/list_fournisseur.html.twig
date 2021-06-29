@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+ 
+  {% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="">comptabilité</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="">Gestion des Fournisseurs</a>
+                                            </li>
+
+                                            {% endblock %}
+
+
+{% block page_contents %}
+    <!-- Pre-loader end -->
+  
+                            <!-- Main-body start -->
+                           
+                                    <!-- Page-body start -->
+                                  
+                                        <!-- Basic table card start -->
+                                        
+                                        <!-- Basic table card end -->
+                                        <!-- Inverse table card start -->
+                                       
+                                        <!-- Inverse table card end -->
+                                        <!-- Hover table card start -->
+                                       
+                                        <!-- Hover table card end -->
+                                        <!-- Contextual classes table starts -->
+                                        <div class="card">
+                                            <div class="card-header"> 
+                                               <a href="{{path('ajouter_fournisseur')}}"  onclick="myFunction('ajouter_fournisseur','')" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un Fournisseur</span></a>
+                                               
+                                                <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                        <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                        <li><i class="fa fa-minus minimize-card"></i></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                        <th>Nom et Prenom</th>
+                        <th>Sociéte</th>
+                        <th>Adress</th>
+                        <th>Ville</th>
+                        <th>Email</th>
+                        <th>MObile</th>
+                        <th>Telephone</th>
+                
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                           {% for fournisseur in fournisseurs %}
+                                                            <tr style="height:30px;" >
+                                                               <td>{{ fournisseur.nom ~ ' ' ~ fournisseur.prenom}}</td>
+                        <td>{{ fournisseur.societe}}</td>
+                        <td>{{ fournisseur.ville}}</td>
+                        <td>{{ fournisseur.adresse}}</td>
+                       
+                        <td>{{fournisseur.email}}</td>
+                        <td>{{fournisseur.mobile}}</td>
+                        <td>{{fournisseur.telephone}}</td>
+                       
+                        <td><img src="/uploads/{{fournisseur.image}}" class="background--page"  style="width:50px;height:30px;"  ></td>
+                        <td>
+                           <a href="{{path('modifier_fournisseur',{id : fournisseur.id}) }}" onclick="myFunction('modifier_fournisseur',{{fournisseur.id}})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="{{path('delete_fournisseur',{id : fournisseur.id}) }}" onclick="myFunction('delete_fournisseur',{{fournisseur.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                              <a href="" onclick="myFunction('recherche',{{fournisseur.id}})" class="eye" data-toggle="modal">
+                                <button class="btn btn-sm btn-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Paye</button></a>
+                        </td>
+
+                                                            </tr>
+
+                                                             {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Contextual classes table ends -->
+                         
+        {% endblock  %}

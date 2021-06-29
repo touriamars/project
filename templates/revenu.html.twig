@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+ {% block content %}
+<li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="">comptabilité</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_revenu">Gestion des revenus</a>
+                                            </li>
+
+ 
+
+  {% endblock %} 
+
+{% block page_contents %}
+   
+    
+           
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+
+ <div class="card-block">
+       <div class="form-material">
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+  {{ form_start(form, {label_attr: {class: 'form-material'} }) }}
+  
+                                                          
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Libelle</label>
+                                                                <div class="col-sm-8">
+                                                                 {{form_widget(form.lib)}}
+                                                                </div>
+                                                            </div>
+                                                              <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Montant</label>
+                                                                <div class="col-sm-8">
+                                                                 {{form_widget(form.montant)}}
+                                                                </div>
+                                                            </div>
+                              {{ form_end(form) }}
+                                     
+
+
+
+                                                </div></div></div>
+                                                </div>
+                                                </div>
+
+                                                {% endblock %}                                  
+                               

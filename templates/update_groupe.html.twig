@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+ 
+
+ {% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_groupe">Gestion Des Groupes</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="">Modifier un groupe</a>
+                                            </li>
+
+                                            {% endblock %}
+
+
+{% block page_contents %}
+   
+    
+           
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+
+              
+
+ <div class="card-block">
+  {% if error %}
+     <div class="alert alert-danger">{{ error }}</div>
+       {% endif %}
+  {{ form_start(form, {label_attr: {class: 'form-material'} }) }}
+                                                           <div class="form-material">
+                                                             <div class="form-group form-default">
+                                                                {{form_widget(form.nb_max_adherent)}}
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Nombre max d'Adherent</label>
+                                                            </div>
+                                                              <div class="form-group form-default">
+                                                                {{form_widget(form.sexe)}}
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Sexe</label>
+                                                            </div>
+                                                              <div class="form-group form-default">
+                                                                {{form_widget(form.tranche_age)}}
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Tranche d'Age</label>
+                                                            </div>
+                              
+                                       {{ form_end(form) }} 
+
+</div>
+
+                                                </div>   </div>
+                                                </div>
+                                                </div>
+
+                                                {% endblock %}                                  
+                               

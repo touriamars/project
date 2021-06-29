@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+  {% block content %}
+ <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                          
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_groupe">Gestion De Groupe</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_adherent_groupe/{{id_groupe}}">liste agherent dans un Adherent</a>
+                                            </li><li class="breadcrumb-item"><a href="">Changer le Groupe</a>
+                                            </li>
+                                              {% endblock %}
+
+
+
+{% block page_contents %}
+   
+    
+           
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+
+              
+
+ <div class="card-block">
+
+                                                           <div class="form-material">
+                                              <form method='POST'>
+                                              <div style='margin-left:10px'>
+                                               {% for groupe in groupes %}
+                                                 {% if groupe.nbmaxadherent>groupe.nbadherent %}
+                                               <div class="form-check">
+  <input
+    class="form-check-input"
+    type="radio"
+    name="groupe"
+    id="flexRadioDefault1"
+    value="{{groupe.id}}"
+  />
+  <label class="form-check-label" for="flexRadioDefault1">{{groupe.lib}}</label>
+</div> 
+                                                     {% endif %}
+
+                                                {% endfor %}
+                                                </div>
+                                                <div>
+                                                  <input type="submit" class="btn btn-primary" name='ok' value='changer le groupe'>
+                                                  </div>
+                                              </form>
+
+</div>
+
+                                                </div>   </div>
+                                                </div>
+                                                </div>
+
+                                                {% endblock %}                                  
+                               

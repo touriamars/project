@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+ 
+  {% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                             <li class="breadcrumb-item"><a href="">comptabilité</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_produit">Gestion des Produits</a>
+                                            </li>
+
+                                            {% endblock %}
+
+
+{% block page_contents %}
+    <!-- Pre-loader end -->
+  
+                            <!-- Main-body start -->
+                           
+                                    <!-- Page-body start -->
+                                  
+                                        <!-- Basic table card start -->
+                                        
+
+                                        <!-- Basic table card end -->
+                                        <!-- Inverse table card start -->
+                                       
+                                        <!-- Inverse table card end -->
+                                        <!-- Hover table card start -->
+                                       
+                                        <!-- Hover table card end -->
+                                        <!-- Contextual classes table starts -->
+                                        <div class="card">
+                                            <div class="card-header"> 
+                                               <a href="{{path('ajouter_produit')}}"  onclick="myFunction('ajouter_produit','')" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un Produit</span></a>
+                                               
+                                                <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                        <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                        <li><i class="fa fa-minus minimize-card"></i></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                        <th>Reference</th>
+                        <th>Libelle</th>
+                        <th>Prix d'Achat HT</th>
+                        <th>Prix d'achat TTC</th>
+                        <th>Poid</th>
+                        <th>Fournisseur</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                           {% for produit in produits %}
+                                                            <tr style="height:30px;" >
+                                                               <td>{{produit.reference}}</td>
+                        <td>{{ produit.lib}}</td>
+                        <td>{{produit.prixht}}</td>
+                        <td>{{ produit.prixttc}}</td>
+                        <td>{{produit.poid}}</td>
+                          {% for fournisseur in fournisseurs %}
+                           {% if fournisseur.id==produit.idfournisseur %}
+                        <td>{{fournisseur.societe}}</td>
+                         {% endif %}
+                         {% endfor %}
+                       
+                        <td><img src="/uploads/{{produit.image}}" class="background--page"  style="width:50px;height:30px;"  ></td>
+                        <td>
+                           <a href="{{path('modifier_produit',{id : produit.id}) }}" onclick="myFunction('modifier_produit',{{produit.id}})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="{{path('delete_fournisseur',{id : produit.id}) }}" onclick="myFunction('delete_produit',{{produit.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+
+
+                                  <a class="eye" data-toggle="modal" href="{{path('ajouter_commande',{id : produit.id}) }}" onclick="myFunction('ajouter_commande',{{produit.id}})" >
+                                <button class="btn btn-sm btn-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Commander</button>
+                        </td>
+
+                                                            </tr>
+
+                                                             {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Contextual classes table ends -->
+                         
+        {% endblock  %}

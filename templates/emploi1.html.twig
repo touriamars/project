@@ -1,0 +1,362 @@
+
+{% extends 'base.html.twig' %}
+
+ 
+{% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            
+                                         <li class="breadcrumb-item"><a href="">Emploi du temps</a>
+                                            </li>
+                                           
+
+                                            {% endblock %}
+
+
+{% block page_contents %}
+   
+    
+           
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+
+               
+
+ <div class="card-block" style='background-Color:white;margin-left:-30px; width:1350px ' >
+ <form id='myForm' method='post'>
+
+ <div class="form-group row">
+  <label for="example-week-input" class="col-2 col-form-label">Semaine</label>
+  <div class="col-10">
+    <input class="form-control" type="week" value="" id="example-week-input" name="week" onchange="submit()" value='{{date|date("y-w")}}'>
+  </div>
+
+  </form>
+</div>
+<div class='row'>
+
+<div style="width:100px;">
+ <label style='margin-left:30px'>jour</label>
+
+</div> 
+
+
+<div style="width:70px;d">
+ <label>6:00</label>
+
+</div> 
+<div style="width:70px;d">
+ <label>7:00</label>
+
+</div> 
+
+
+ 
+
+
+<div style="width:70px;">
+ <label>8:00</label>
+
+</div> 
+
+
+<div style="width:70px;">
+ <label>9:00</label>
+
+ 
+</div>
+
+<div style="width:70px;">
+ <label>10:00</label>
+
+</div> 
+
+
+<div style="width:70px;">
+ <label>11:00</label>
+
+</div> 
+
+
+<div style="width:75px;">
+ <label>12:00</label>
+
+</div> 
+
+
+<div style="width:70px;">
+ <label>13:00</label>
+
+</div> 
+
+
+<div style="width:70px;">
+ <label>14:00</label>
+
+</div> 
+
+<div style="width:70px;">
+ <label>15:00</label>
+
+</div> 
+
+<div style="width:70px;">
+ <label>16:00</label>
+
+</div> 
+
+
+<div style="width:70px;">
+ <label>17:00</label>
+
+</div> 
+
+
+<div style="width:70px;">
+ <label>18:00</label>
+
+</div> 
+
+
+<div style="width:70px;">
+ <label>19:00</label>
+
+</div> 
+
+
+<div style="width:70px;">
+ <label>20:00</label>
+
+</div> 
+
+
+<div style="width:70px;">
+ <label>21:00</label>
+
+</div><div style="width:70px;">
+ <label>22:00</label>
+
+</div> </div> 
+
+<div>
+     <div>
+    <div  style=' margin-top=10px'>
+      <div class="row" >
+
+     <label style='margin-top:40px;width:100px'> lundi</label>
+   
+         {% set heure_avant=21600 %}
+         {% for seance in lundi %}
+         
+         {% if seance.jour=='lundi' %}
+         {% set foo = ((seance.heurefin | date('U'))-(seance.heuredebut | date('U')) )*70/3600  %}
+          {% set foo1 = ((seance.heuredebut | date('U')) - heure_avant )*70/3600  %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div style="width:  {{foo ~ 'px'}};background-Color:{{groupe.color}};margin-left:{{foo1~ 'px'}}"  >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib ~' ' ~' piscine' ~ seance.piscine }}
+       
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+
+    
+  
+       {% endif %}  {% set heure_avant= seance.heurefin | date('U')%}
+        {% endfor %}
+         </div>
+  
+   <hr>
+  </div> 
+
+  <div >
+     <div class="row" >
+     <label style=' width:100px'> mardi</label>
+       {% set heure_avant=21600 %}
+         {% for seance in mardi %}
+         
+         {% if seance.jour=='mardi' %}
+         {% set foo = ((seance.heurefin | date('U'))-(seance.heuredebut | date('U')) )*70/3600  %}
+          {% set foo1 = ((seance.heuredebut | date('U')) - heure_avant )*70/3600  %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div style="width:  {{foo ~ 'px'}};background-Color:{{groupe.color}};margin-left:{{foo1~ 'px'}}"  >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+      {{groupe.lib ~' ' ~' piscine' ~ seance.piscine }}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+
+    
+  
+       {% endif %}  {% set heure_avant= seance.heurefin | date('U')%}
+        {% endfor %}
+          </div >
+  <hr>
+  
+  </div>
+    <div >
+     <div class="row" >
+     <label style='width:100px'>mercredi</label>
+        {% set heure_avant=21600 %}
+         {% for seance in mercredi %}
+         
+         {% if seance.jour=='mercredi' %}
+         {% set foo = ((seance.heurefin | date('U'))-(seance.heuredebut | date('U')) )*70/3600  %}
+          {% set foo1 = ((seance.heuredebut | date('U')) - heure_avant )*70/3600 %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div style="width:  {{foo ~ 'px'}};background-Color:{{groupe.color}};margin-left:{{foo1~ 'px'}}"  >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+         {{groupe.lib ~' ' ~' piscine' ~ seance.piscine }}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+
+    
+  
+       {% endif %}  {% set heure_avant= seance.heurefin | date('U')%}
+        {% endfor %}
+        </div>
+  
+ <hr>
+  </div> 
+
+  <div >
+   <div class="row" >
+     <label style=' width:100px'>Jeudi</label>
+         {% set heure_avant=21600 %}
+         {% for seance in jeudi %}
+         
+         {% if seance.jour=='jeudi' %}
+         {% set foo = ((seance.heurefin | date('U'))-(seance.heuredebut | date('U')) )*70/3600  %}
+          {% set foo1 = ((seance.heuredebut | date('U')) - heure_avant )*70/3600  %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div style="width:  {{foo ~ 'px'}};background-Color:{{groupe.color}};margin-left:{{foo1~ 'px'}}"  >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+ {{groupe.lib ~' ' ~' piscine' ~ seance.piscine }}
+    
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+
+    
+  
+       {% endif %}  {% set heure_avant= seance.heurefin | date('U')%}
+        {% endfor %}
+         </div>
+  <hr>
+  
+  </div>
+    <div >
+      <div class="row" >
+
+     <label style='width:100px'>Vendredi</label>
+   
+          {% set heure_avant=21600 %}
+         {% for seance in vendredi %}
+         
+         {% if seance.jour=='vendredi' %}
+         {% set foo = ((seance.heurefin | date('U'))-(seance.heuredebut | date('U')) )*70/3600  %}
+          {% set foo1 = ((seance.heuredebut | date('U')) - heure_avant )*70/3600  %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div style="width:  {{foo ~ 'px'}};background-Color:{{groupe.color}};margin-left:{{foo1~ 'px'}}"  >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+      {{groupe.lib ~' ' ~' piscine' ~ seance.piscine }}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+
+    
+  
+       {% endif %}  {% set heure_avant= seance.heurefin | date('U')%}
+        {% endfor %}
+         </div>
+  <hr>
+  </div> 
+
+  <div>
+     <div class="row" >
+
+     <label style='width:100px'>Samedi</label>
+    {% set heure_avant=21600 %}
+         {% for seance in samedi %}
+         
+         {% if seance.jour=='samedi' %}
+         {% set foo = ((seance.heurefin | date('U'))-(seance.heuredebut | date('U')) )*70/3600  %}
+          {% set foo1 = ((seance.heuredebut | date('U')) - heure_avant )*70/3600 %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div style="width:  {{foo ~ 'px'}};background-Color:{{groupe.color}};margin-left:{{foo1~ 'px'}}"  >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib ~' ' ~' piscine' ~ seance.piscine }}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+
+    
+  
+       {% endif %}  {% set heure_avant= seance.heurefin | date('U')%}
+        {% endfor %}
+         </div>
+  <hr>
+  
+  </div>
+    <div >
+    <div ' style=' margin-top=10px'>
+      <div class="row" >
+<label style='width:100px'>Dimanche</label>
+   
+         {% set heure_avant=21600 %}
+         {% for seance in dimanche %}
+         
+         {% if seance.jour=='dimanche' %}
+         {% set foo = ((seance.heurefin | date('U'))-(seance.heuredebut | date('U')) )*70/3600  %}
+          {% set foo1 = ((seance.heuredebut | date('U')) - heure_avant )*70/3600 %}
+        {% for groupe in groupes %}
+          {% if seance.groupe == groupe.id %}
+      <div style="width:  {{foo ~ 'px'}};background-Color:{{groupe.color}};margin-left:{{foo1~ 'px'}}"  >{{seance.heuredebut|date("h:m")}} a {{seance.heurefin|date("h:m")}}
+      <br>
+     {{groupe.lib ~' ' ~' piscine' ~ seance.piscine }}
+       </div>
+
+      {% endif %}
+
+   {% endfor %}
+
+    
+  
+       {% endif %}  {% set heure_avant= seance.heurefin | date('U')%}
+        {% endfor %}
+         </div>
+  <hr>
+  </div> 
+
+</div> 
+
+
+
+
+ </div>
+                                                </div>
+                                                </div></div>
+
+                                                {% endblock %}                                  
+                               

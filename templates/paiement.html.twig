@@ -1,0 +1,97 @@
+
+{% extends 'base.html.twig' %}
+
+ 
+
+
+
+{% block page_contents %}
+   
+    
+           
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+
+ 
+               
+
+ <div class="card-block">
+ <div class="form-group form-default">
+
+<form  method="POST" action="{{path('paiement')}}" class="form-material">
+<div class="form-group form-default">
+   <label>Matricule</label><input type="text"  id="id"  class="form-control" readonly></div>
+   <div class="form-group form-default">
+   <label>Code D'inscription</label><input type="text"  class="form-control" readonly id='code'></div>
+
+
+<select id='s' name='id1' class="form-control"   onchange="paiement({{adherents}})">
+<option value=''>choisi un adherent</option>
+{% for user in adherent %}
+<option value="{{user.id}}" >{{user.nomfrancais~' '~ user.prenomfrancais}}</option>
+{% endfor %}
+
+</select>
+<div class="form-group form-default">
+<label>Trance d'age</label>
+<select id="age"  name='age' class="form-control">
+<option value=''></option>
+
+<option value='adulte'>adulte</option>
+<option value='enfant'>enfant</option>
+
+
+
+</select></div>
+
+<label>Niveau</label>
+<select id="niveau" name='niveau' class="form-control" >
+<option value=''></option>
+
+<option value='debutant'>debutant</option>
+<option value='expert'>expert</option>
+
+
+</select><br><br>
+
+
+<label>date D'inscription</label><input type="date" 
+ id="dateinscription" class="form-control">
+
+<label>Montant paye</label><input type="number" id="montant"  disabled class="form-control">
+<input type="number"  name="montant" id='montant1' hidden='true'>
+<label readonly>Libelle du groupe</label><input type="text"  readonly class="form-control" id='groupe'>
+<div class="form-group row" class="form-control">
+  <label for="example-month-input" class="col-2 col-form-label">la date  debut</label>
+  <div class="col-10">
+    <input class="form-control" type="month" value='{{ "now"|date("y-m-d") }}' name="date_debut" id="date1" onchange="paiement1()" required>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-month-input" class="col-2 col-form-label">la date fin</label>
+  <div class="col-10">
+    <input class="form-control" type="month" value='{{ "now"|date("m-d-Y") }}' name="date_fin"  id="date2" onchange="paiement1()"  required>
+  </div>
+</div>
+Badege: <input type="checkbox" id="myCheck" onclick="paiement1()"><br>
+
+
+
+
+
+
+<input type='submit' value='Enregistrer' name='ok' class="btn btn-primary">
+
+
+</form>
+
+
+
+
+ </div>   </div>
+                                                </div>
+                                                </div></div>
+
+                                                {% endblock %}                                  
+                               

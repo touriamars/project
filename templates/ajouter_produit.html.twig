@@ -1,0 +1,138 @@
+
+{% extends 'base.html.twig' %}
+
+ 
+
+ {% block content %}
+                                             <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                          <li class="breadcrumb-item"><a href="http://localhost:8000/list_produit">Gestion De Produit</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="">Ajouter un Produit</a>
+                                            </li>
+
+                                            {% endblock %}
+
+{% block page_contents %}
+   
+    
+           
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+
+              
+
+ <div class="card-block">
+ <div class="form-group form-default">
+
+
+
+<form method='POST'  enctype="multipart/form-data">
+
+<div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Réference</label>
+                                                                <div class="col-sm-8">
+                                                                <input type='text' name="reference" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Libelle du produit</label>
+                                                                <div class="col-sm-8">
+                                                                <input type='text' name="lib" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Description</label>
+                                                                <div class="col-sm-8">
+                                                                  <input type='text' name="description" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Prix d'Achat HT</label>
+                                                                <div class="col-sm-8">
+                                                                 <input type='number' name="prix_ht" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                          
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">TVA</label>
+                                                                <div class="col-sm-8">
+                                                                 <input type='number' name="tva" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Fournisseur</label>
+                                                                <div class="col-sm-8">
+                                                              <select id='s' name='id' class="form-control"   >
+
+{% for fournisseur in fournisseurs %}
+<option value="{{fournisseur.id}}" >{{fournisseur.nom~' '~ fournisseur.prenom}}</option>
+{% endfor %}
+
+</select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Stock Max</label>
+                                                                <div class="col-sm-8">
+                                                                 <input type='number' name="stock_max" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Stock Alerté</label>
+                                                                <div class="col-sm-8">
+                                                                  <input type='number' name="stock_alerte" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Frais de Stockage</label>
+                                                                <div class="col-sm-8">
+                                                                <input type='number' name="fraix_stockage" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Poid en gramme</label>
+                                                                <div class="col-sm-8">
+                                                                <input type='number' name="poid" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                             <div class="form-group row" style='margin-left:200px'>
+                                                           
+                                                            </div>
+                                                             <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Image</label>
+                                                                <div class="col-sm-8">
+                                                                 <input type='file' name="image" class='form-control' required>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-check" style='margin-left:200px'>
+  <input class="form-check-input" type="radio" name="etat" id="flexRadioDisabled" value='archive' >
+  <label class="form-check-label" for="flexRadioDisabled">
+   Produit Archivé
+  </label>
+</div>
+<div class="form-check" style='margin-left:200px'>
+  <input class="form-check-input" type="radio" name="etat" id="flexRadioCheckedDisabled" value='sur command' >
+  <label class="form-check-label" for="flexRadioCheckedDisabled">
+   Produit sur command
+  </label>
+</div>
+                                                            <div class="form-group row">
+                                                               
+                                                                <div class="col-sm-3">
+                                                                 <input type='submit' name="ajouter" class='form-control' required>
+                                                                </div>
+                                                            </div>
+                                                            
+
+ </form>
+ </div>   </div>
+                     </div>
+                                                </div>
+                                                </div></div>
+
+                                                {% endblock %}                                  
+                               

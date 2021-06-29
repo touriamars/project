@@ -1,0 +1,97 @@
+
+
+
+
+{% extends 'base.html.twig' %}
+
+ 
+{% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/list_seance">Seance</a>
+                                            </li> <li class="breadcrumb-item"><a href="http://localhost:8000/list_seance">Gestion des Seances</a>
+                                            </li>
+                                           
+
+                                            {% endblock %}
+
+{% block page_contents %}
+
+
+
+                                        
+                                        <div class="card">
+                                            <div class="card-header">
+                                               <a href="#addEmployeeModal"  onclick="myFunction('ajouter_seance','')" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un Seance</span></a>
+                                               
+                                                <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                        <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                        <li><i class="fa fa-minus minimize-card"></i></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                        <th>Id</th>
+                        
+
+                       
+                        <th>groupe</th>
+                        <th>piscine</th>
+                        <th>ensaignant</th>
+                         <th>jour</th>
+                         <th>heure de debut</th>
+                          <th>heure de fin</th>
+                        
+                        <th>Actions</th>
+                    </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                           {% for seance in seances %}
+                                                            <tr style="height:10px;" >
+                                                               <td>{{ seance.id}}</td>
+                      
+                       
+                       
+                        <td>{{'groupe'~' ' ~ seance.groupe}}</td>
+                        <td>{{'piscine'~' ' ~ seance.piscine}}</td>
+                        <td>{{ seance.enseignant}}</td>
+                         <td>{{seance.jour}}</td>
+                         <td>{{seance.heuredebut|date("h:m")}}</td>
+                         <td>{{seance.heurefin |date("h:m")}}</td>
+
+                       
+                        <td>
+                            
+                               
+                            <a  onclick="myFunction('update_seance',{{seance.id}})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a  onclick="myFunction('delete_seance',{{seance.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                              <a href="" onclick="myFunction('absence',{{seance.id}})" class="eye" data-toggle="modal">
+                                <button class="btn btn-sm btn-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Absence</button>
+                        </td>
+
+                                                            </tr>
+
+                                                             {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+ 
+
+
+
+{% endblock  %}
+  
