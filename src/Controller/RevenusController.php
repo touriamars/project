@@ -65,6 +65,7 @@ public function ajouter_revenu(Request $request):Response
 
 
     {  
+         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
  $entityManager = $this->getDoctrine()->getManager();
 
 
@@ -145,6 +146,7 @@ public function modifier_revenu(Request $request,$id):Response
 
 
     {  
+         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
  $entityManager = $this->getDoctrine()->getManager();
 
 $charge =$entityManager->getRepository(TypeRevenu::class)->find($id);
@@ -229,7 +231,7 @@ $charge =$entityManager->getRepository(TypeRevenu::class)->find($id);
 public function delete_revenu($id):Response
 
 
-    {  $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    {   $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
        $entityManager=  $this->getDoctrine()->getManager();
        $charge =$entityManager->getRepository(TypeRevenu::class)->find($id);
        $entityManager->remove($charge);
@@ -257,6 +259,7 @@ public function delete_revenu($id):Response
 public function list_revenu(TypeRevenuRepository $var):Response
 
 {
+     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
        $revenus= $var->findAll();
 
       return $this->render('list_revenu.html.twig' ,[

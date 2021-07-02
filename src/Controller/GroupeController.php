@@ -66,6 +66,7 @@ public function ajouter_groupe(Request $request):Response
 
 
     {  
+         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
  $entityManager = $this->getDoctrine()->getManager();
 
 
@@ -173,7 +174,7 @@ if ($groupe1) {
 
     public function list_groupe(GroupeRepository $var):Response
 
-{
+{   $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
        $groupes= $var->findAll();
 
       return $this->render('list_groupe.html.twig' ,[
@@ -195,7 +196,7 @@ if ($groupe1) {
     public function update_groupe($id,Request $request)
 
 
-    {   $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    {   $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
      $entityManager = $this->getDoctrine()->getManager();
         $groupe = $entityManager->getRepository(Groupe::class)->find($id);
@@ -321,6 +322,7 @@ if ($groupe->getNbAdherent()>$groupe->getNbMaxAdherent()) {
      */
     public function delete_groupe(int $id): Response
     {
+         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $entityManager = $this->getDoctrine()->getManager();
         $groupe = $entityManager->getRepository(Groupe::class)->find($id);
           $groupe1 = $entityManager->getRepository(GroupeAdherent::class)->findOneByIdGroupe($id);
@@ -357,7 +359,8 @@ foreach ($groupe1 as  $value) {
 public function list_adherent_groupe($id,GroupeRepository $var):Response
 
 
-    {   $groupe= $var->find($id);
+    {   $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+     $groupe= $var->find($id);
           $entityManager = $this->getDoctrine()->getManager();
        $affectation = $entityManager->getRepository(Affectation::class)->findOneByIdGroupe( $groupe->getId());
  
@@ -389,7 +392,9 @@ public function list_adherent_groupe($id,GroupeRepository $var):Response
 public function changer_groupe($id,$id_groupe,GroupeRepository $var):Response
 
 
-    {   $groupe= $var->findAll();
+    {  
+     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+      $groupe= $var->findAll();
         
         if (isset($_POST['ok'])) {
 
@@ -463,7 +468,7 @@ public function changer_groupe($id,$id_groupe,GroupeRepository $var):Response
 public function affectation(UtulisateurRepository $var,$id):Response
 
 {
-
+ $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
     
      $entityManager = $this->getDoctrine()->getManager();
         $groupe1 = $entityManager->getRepository(Groupe::class)->find($id);
@@ -530,7 +535,8 @@ $groupeadherent = new GroupeAdherent();
      * @Route("/list_absence/{id}", name="list_absence")
      */
     public function list_absence($id)
-    { $seances=[];
+    {  $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $seances=[];
          $adherents=[];
           $entityManager = $this->getDoctrine()->getManager();
          $seances = $entityManager->getRepository(Seance::class)->findOneByIdGroupe($id);

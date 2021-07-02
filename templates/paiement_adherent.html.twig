@@ -1,4 +1,16 @@
 {% extends 'base.html.twig' %}
+{% block content %}
+                                            <li class="breadcrumb-item">
+                                                <a href="http://localhost:8000/acceuil"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            
+                                            <li class="breadcrumb-item"><a href="http://localhost:8000/paiement1">Paiement</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="">liste de Paiement</a>
+                                            </li>
+
+                                            {% endblock %}
+
 
 {% block page_contents %}
   <div class="card" style='width:2000000;'>
@@ -48,7 +60,7 @@
 
 
      
-     <td scope="col">{{groupe.lib}}</td>
+     <td scope="col">{{groupe}}</td>
        <td scope="col">{{adherent.age}}</td>
        <td scope="col">{{paiement.typerevenu}}</td>
         <td scope="col">{{paiement.montantpaye}}</td>
@@ -59,6 +71,8 @@
   </tbody>
 </table>
                             </div>
+                             <a href="" onclick="myFunction('paiement1','','')" class="eye" data-toggle="modal">
+                                <button class="btn  btn-primary "type="button" data-toggle="modal" data-target="#user-form-modal">Retour</button></a>
                         </div>
                     </div>
                     <!-- Column -->

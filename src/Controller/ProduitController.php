@@ -53,6 +53,7 @@ class ProduitController extends AbstractController
      * @Route("/ajouter_produit", name="ajouter_produit")
      */
     public function ajouter_produit(Request $request){
+       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
           $entityManager = $this->getDoctrine()->getManager();
         $fournisseurs = $entityManager->getRepository(Fournisseur::class)->findAll();
@@ -119,6 +120,7 @@ class ProduitController extends AbstractController
      * @Route("/modifier_produit/{id}", name="modifier_produit")
      */
     public function modifier_produit(Request $request,$id){
+       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
        
            $entityManager = $this->getDoctrine()->getManager();
@@ -126,7 +128,7 @@ class ProduitController extends AbstractController
 
         
 
-              if (isset($_POST['ajouter']))
+              if (isset($_POST['modifier']))
 
  {    $entityManager = $this->getDoctrine()->getManager();
 
@@ -186,7 +188,7 @@ if ($request->files->get('image')) {
 
 public function list_produit(FournisseurRepository $var,ProduitRepository $var1):Response
 
-{
+{    $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
        $fournisseurs= $var->findAll();
         $produits= $var1->findAll();
 
@@ -200,10 +202,12 @@ public function list_produit(FournisseurRepository $var,ProduitRepository $var1)
      * @Route("/delete_produit/{id}", name="delete_produit")
      */
 
-    public function delete_produit(Produit $produit ):Response
+    public function delete_produit( $id):Response
 
 
-    {  $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    {   $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+    $entityManager = $this->getDoctrine()->getManager();
+      $produit = $entityManager->getRepository(Produit::class)->find($id);
 
 
               $commandes = $entityManager->getRepository(Commande::class)->findBy([

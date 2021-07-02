@@ -63,10 +63,11 @@
                         
                          <form id='myForm' method='post'>
                         <input type='text' name='id' value='{{user.id}}' hidden>
-                        <input type='submit' name='ok' class="btn  btn-primary " value='liste de paiement'>
+                      <a href="" onclick="myFunction('paiement_adherent',{{user.id}})" class="eye" data-toggle="modal">
+                                <button class="btn  btn-primary "type="button" data-toggle="modal" data-target="#user-form-modal">list de paiement</button></a>
                      <input type='submit' name='ok' class="btn  btn-primary " value='paye'>
             
-                                <input type="submit" class="btn btn-sm btn-primary badge" name='ok' " data-toggle="modal"  value="s">
+                                
   </form>    
                         </td>
 

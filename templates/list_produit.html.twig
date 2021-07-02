@@ -77,7 +77,7 @@
                         <td><img src="/uploads/{{produit.image}}" class="background--page"  style="width:50px;height:30px;"  ></td>
                         <td>
                            <a href="{{path('modifier_produit',{id : produit.id}) }}" onclick="myFunction('modifier_produit',{{produit.id}})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="{{path('delete_fournisseur',{id : produit.id}) }}" onclick="myFunction('delete_produit',{{produit.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="" onclick="myFunction('delete_produit',{{produit.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 
 
                                   <a class="eye" data-toggle="modal" href="{{path('ajouter_commande',{id : produit.id}) }}" onclick="myFunction('ajouter_commande',{{produit.id}})" >

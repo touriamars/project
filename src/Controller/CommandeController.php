@@ -54,6 +54,7 @@ class CommandeController extends AbstractController
      * @Route("/ajouter_commande/{id}", name="ajouter_commande")
      */
     public function ajouter_commande(Request $request,$id){
+       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
        $entityManager = $this->getDoctrine()->getManager();
         $produit = $entityManager->getRepository(Produit::class)->find($id);
@@ -111,6 +112,7 @@ $prix=$_POST['quantite']*($produit->getPrixHt()+$produit->getPrixHt()*$produit->
 public function list_commande():Response
 
 {
+   $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
      $entityManager = $this->getDoctrine()->getManager();
         $commande = $entityManager->getRepository(Commande::class)->findAll();
         $i=0;
@@ -156,6 +158,7 @@ public function list_commande():Response
      * @Route("/modifier_commande/{id}/{id_commande}", name="modifier_commande")
      */
     public function modifier_commande(Request $request,$id,$id_commande){
+       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
        $entityManager = $this->getDoctrine()->getManager();
         $produit = $entityManager->getRepository(Produit::class)->find($id);
@@ -218,6 +221,7 @@ public function delete_commande(Commande $commande ):Response
 
 
     {  
+       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
        $entityManager=  $this->getDoctrine()->getManager();
        $entityManager->remove($commande);
        $entityManager->flush();

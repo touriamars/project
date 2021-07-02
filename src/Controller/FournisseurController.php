@@ -54,6 +54,7 @@ class FournisseurController extends AbstractController
      * @Route("/ajouter_fournisseur", name="ajouter_fournisseur")
      */
     public function ajouter_fournisseur(Request $request){
+         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
        
 
@@ -119,6 +120,7 @@ class FournisseurController extends AbstractController
 public function list_fournisseur(FournisseurRepository $var):Response
 
 {
+     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
        $fournisseurs= $var->findAll();
 
       return $this->render('list_fournisseur.html.twig' ,[
@@ -132,6 +134,7 @@ public function list_fournisseur(FournisseurRepository $var):Response
      * @Route("/modifier_fournisseur/{id}", name="modifier_fournisseur")
      */
     public function modifier_fournisseur(Request $request,$id){
+         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
        
            $entityManager = $this->getDoctrine()->getManager();
@@ -139,7 +142,7 @@ public function list_fournisseur(FournisseurRepository $var):Response
 
         
 
-              if (isset($_POST['ajouter']))
+              if (isset($_POST['modifier']))
 
  {     $entityManager = $this->getDoctrine()->getManager();
 
@@ -195,7 +198,7 @@ if ($request->files->get('image')) {
     public function delete_fournisseur(Fournisseur $fournisseur ):Response
 
 
-    {  $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    {   $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
        $entityManager=  $this->getDoctrine()->getManager();
                   $produits = $entityManager->getRepository(Produit::class)->findBy([
     "id_fournisseur" => $id,
@@ -237,6 +240,7 @@ foreach ($produits as $produit) {
 
 
 public function recherche($id,Request $request):Response {
+     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 if (isset($_POST['ok'])) {
 $commande=[];
 
@@ -248,11 +252,13 @@ $commande=[];
              
              foreach ($commandes as  $value1) {  
 
-   
+    $paiement= $entityManager->getRepository(PaiementCommande::class)->findOneByIdCommande($value1->getId());
 
-                if ( $request->get('date_debut') <= $value1->getDate()->format('Y-m-d') and  $request->get('date_fin') >= $value1->getDate()->format('Y-m-d')  ) {
+                if ( $request->get('date_debut') <= $value1->getDate()->format('Y-m-d') and  $request->get('date_fin') >= $value1->getDate()->format('Y-m-d')  and !$paiement    ) {
                     $commandes1[]=$value1;
                 $commande[$i]['lib']=$value->getLib();
+                 $commande[$i]['id']=$value1->getId();
+                  $commande[$i]['id_produit']=$value1->getIdProduit();
                 $commande[$i]['quantite']=$value1->getQuantite();
                 $commande[$i]['prix_ht']=$value->getPrixHt();
                 $commande[$i]['prix_ttc']=$value->getPrixTtc();
@@ -274,15 +280,25 @@ $commande=[];
      
        } 
        if (isset($_POST['valider'])) {
-        $entityManager = $this->getDoctrine()->getManager();
+       $entityManager = $this->getDoctrine()->getManager();
         $produit = $entityManager->getRepository(Produit::class)->findOneByIdFournisseur($id);
+           $commandes1=array();
+             $produits=array();
         foreach ($produit as $value) {
+            $produits[]=$value;
              $commandes= $entityManager->getRepository(Commande::class)->findOneByIdProduit($value->getId());
-foreach (  $commandes as  $value) {
+foreach (  $commandes as  $value1) {
+ $paiement= $entityManager->getRepository(PaiementCommande::class)->findOneByIdCommande($value1->getId());
+
+     if ( $request->get('date_debut') <= $value1->getDate()->format('Y-m-d') and  $request->get('date_fin') >= $value1->getDate()->format('Y-m-d')  and !$paiement  ) {
+         $commandes1[]=$value1;
+   
           $paiement= new PaiementCommande();
-          $paiement->setIdCommande($value->getId());
+          $paiement->setIdCommande($value1->getId());
            $paiement->setMode($_POST['mode']);
            $paiement->setDatePaiement(new \DateTime('now'));
+           $entityManager = $this->getDoctrine()->getManager();
+       
  
 
 
@@ -290,10 +306,48 @@ foreach (  $commandes as  $value) {
                   $entityManager->persist($paiement);
 
         
-        $entityManager->flush();
+        $entityManager->flush();}
         }
 
          }
+          
+         $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+     $pdfOptions->setIsRemoteEnabled(true);
+
+
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+          $fournisseur = $entityManager->getRepository(Fournisseur::class)->find($id);
+          $image=$fournisseur->getImage();
+          $nom=$fournisseur->getSociete();
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('pdf2.html.twig',[
+        'nom'=>$nom,
+        'image'=>$image,
+        'date_paiement'=>new \DateTime('now'),
+        'commandes'=> $commandes1,
+        'produits'=>$produits,
+        'mode'=>$_POST['mode'],]
+         );
+
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+         $dompdf->set_option('isHtml5ParserEnabled', true);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => true
+        ]);
 
 
         
@@ -313,41 +367,7 @@ foreach (  $commandes as  $value) {
      */
 
 
- public function pdf2($societe,$commandes,$date_paiement)
-    {
-        /*
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-     $pdfOptions->setIsRemoteEnabled(true);
 
-        
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-        
-        // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('pdf2.html.twig',[
-        'societe'=>$societe,
-        'cammandes'=>$cammandes,
-        'date_paiement'=>$date_debut,
-        ]);
-        
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-        
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        // Output the generated PDF to Browser (inline view)
-        $dompdf->stream("mypdf.pdf", [
-            "Attachment" => true
-        ]);
- 
-*/
-       
-    }
 
 
 }

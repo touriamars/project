@@ -210,7 +210,7 @@ if ($groupe1) {
 
 
 
-                 if (isset($_POST['ajouter'])) {
+                 if (isset($_POST['modifier'])) {
 
               // return new Response($request->files->get('image'));
           if ($request->files->get('image')) {
@@ -308,6 +308,8 @@ public function paiement1():Response
 
 
     { 
+
+       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
   if (isset($_POST['paye'])) {
 
           

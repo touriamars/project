@@ -60,7 +60,8 @@ class SeanceController extends AbstractController
 public function ajouter_seance(Request $request,GroupeRepository $var):Response
 
 
-    {  
+    { 
+     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY'); 
  $entityManager = $this->getDoctrine()->getManager();
 
         $groupes=$var->findAll();
@@ -306,6 +307,7 @@ foreach ($groupes as $choice) {
 public function list_seance(SeanceRepository $var):Response
 
 {
+   $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
        $seances= $var->findAll();
 
       return $this->render('list_seance.html.twig' ,[
@@ -321,6 +323,7 @@ public function list_seance(SeanceRepository $var):Response
      */
     public function delete_seance(int $id): Response
     {
+       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $entityManager = $this->getDoctrine()->getManager();
         $seance = $entityManager->getRepository(Seance::class)->find($id);
            $entityManager->remove($seance);
@@ -349,7 +352,7 @@ $entityManager->flush();
     public function update_seance($id,Request $request,GroupeRepository $var)
 
 
-    {   $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    {    $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
       $entityManager = $this->getDoctrine()->getManager();
 
@@ -604,6 +607,7 @@ foreach ($groupes as $choice) {
     public function absence($id,Request $request): Response
    
     {
+       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -663,7 +667,7 @@ foreach ($groupes as $choice) {
 public function emploi(SeanceRepository $var,Request $request):Response
 
 
-    {   
+    {    $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
        
 
         $seance= $var->findAll();

@@ -4,7 +4,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
        
         {% block stylesheets %}
            <link rel="icon" href="{{asset('images/favicon.ico" type="image/x-icon')}} ">
@@ -653,21 +653,21 @@ var date2=document.getElementById('date2').valueAsDate ;
   <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">comptabilité</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Comptabilité</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
                                             <a href="http://localhost:8000/list_fournisseur" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Gestion deS Fournisseurs</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Gestion des Fournisseurs</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
                                             <a href="http://localhost:8000/list_produit" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Gestion deS Produits</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Gestion des Produits</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -675,6 +675,13 @@ var date2=document.getElementById('date2').valueAsDate ;
                                             <a href="http://localhost:8000/list_commande" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Gestion des Commandes</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                         <li class=" ">
+                                            <a href="http://localhost:8000/list_revenu" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Gestion des revenus</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

@@ -129,7 +129,8 @@ public function acceuil( ):Response
 public function ajouter_user(Request $request):Response
 
 
-    {   
+    {
+    $this->denyAccessUnlessGranted('ROLE_ADMIN');   
        $entityManager = $this->getDoctrine()->getManager();
         $product = new User();
     
@@ -147,7 +148,8 @@ public function ajouter_user(Request $request):Response
             ),
             'expanded' => true,
             'mapped'=>false,
-            'multiple'=>true
+           
+            "required"=>true
         ))
 
             ->add('envoyer', SubmitType::class, ['label' => 'Ajouter'])
@@ -159,12 +161,12 @@ public function ajouter_user(Request $request):Response
             $task = $form->getData();
 
             $Prenom=array();
-              $Prenom1=$form->get('ROLES')->getData();
+            $Prenom[]=$form->get('ROLES')->getData();
 
             
-for ($i=0; $i <count($Prenom1) ; $i++) { 
-    $Prenom[$i]=$Prenom1[$i];
-}
+
+  
+
                $pass = $this->passwordEncoder->encodePassword($product, $product->getPassword());
               
            $product->setPassword($pass);
@@ -204,7 +206,8 @@ for ($i=0; $i <count($Prenom1) ; $i++) {
     public function update_user(Request $request,$id):Response
 
 
-    {   
+    {  
+    $this->denyAccessUnlessGranted('ROLE_ADMIN'); 
        $entityManager = $this->getDoctrine()->getManager();
        $user= $entityManager->getRepository(User::class)->find($id);
         $product = new User();
@@ -226,7 +229,8 @@ for ($i=0; $i <count($Prenom1) ; $i++) {
             ),
             'expanded' => true,
             'mapped'=>false,
-            'multiple'=>true
+           
+            "required"=>true
         ))
 
             ->add('envoyer', SubmitType::class, ['label' => 'Modifier'])
@@ -238,12 +242,9 @@ for ($i=0; $i <count($Prenom1) ; $i++) {
             $task = $form->getData();
 
             $Prenom=array();
-              $Prenom1=$form->get('ROLES')->getData();
+             $Prenom[]=$form->get('ROLES')->getData();
 
-            
-for ($i=0; $i <count($Prenom1) ; $i++) { 
-    $Prenom[$i]=$Prenom1[$i];
-}
+
                $pass = $this->passwordEncoder->encodePassword($product, $product->getPassword());
               
            $user->setPassword($pass);
@@ -287,7 +288,7 @@ for ($i=0; $i <count($Prenom1) ; $i++) {
 
 public function list_user(UserRepository $var):Response
 
-{
+{ $this->denyAccessUnlessGranted('ROLE_ADMIN');
        $users= $var->findAll();
 
       return $this->render('list_user.html.twig' ,[
@@ -307,7 +308,7 @@ public function list_user(UserRepository $var):Response
 
 public function blouquer($id)
 {
-
+$this->denyAccessUnlessGranted('ROLE_ADMIN');
     $entityManager = $this->getDoctrine()->getManager();
         $user = $entityManager->getRepository(User::class)->find($id);
 
@@ -330,7 +331,7 @@ public function blouquer($id)
 
 public function deblouquer($id)
 {
-
+$this->denyAccessUnlessGranted('ROLE_ADMIN');
     $entityManager = $this->getDoctrine()->getManager();
         $user = $entityManager->getRepository(User::class)->find($id);
 
@@ -680,7 +681,14 @@ public function modifier_mot_de_passe(Request $request):Response
         $entityManager = $this->getDoctrine()->getManager();
         $Paiement = $entityManager->getRepository(Paiement::class)->findOneByIdAdherent($id);
         $affectation = $entityManager->getRepository(Affectation::class)->findOneByIdAdherent($id);
-        $groupe=$entityManager->getRepository(Groupe::class)->find($affectation->getIdGroupe());
+        if ($affectation) {
+         $groupe=$entityManager->getRepository(Groupe::class)->find($affectation->getIdGroupe());
+         $nom_groupe=$groupe->getLib();
+        }
+        else{
+          $nom_groupe='';
+        }
+
         $adherent = $entityManager->getRepository(Utulisateur::class)->find($id);
 
 
@@ -688,7 +696,7 @@ public function modifier_mot_de_passe(Request $request):Response
         return $this->render('paiement_adherent.html.twig',[
              'adherent'=>$adherent,
               'paiements'=>$Paiement,
-              'groupe'=> $groupe
+              'groupe'=> $nom_groupe
 
         ]);
 
