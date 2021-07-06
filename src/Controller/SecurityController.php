@@ -139,7 +139,9 @@ public function ajouter_user(Request $request):Response
             ->add('nom_prenom', TextType::class)
              ->add('email', EmailType::class)
               ->add('password',PasswordType::class)
-               ->add('tele', TextType::class)
+               ->add('tele', TextType::class ,array(
+    'attr' => array('maxlength' => 10,'minlength' => 10),
+))
                 ->add('ROLES',   ChoiceType::class, array(
             'choices' => array(
                 'Administrateur' => 'ROLE_ADMIN',
@@ -218,9 +220,10 @@ public function ajouter_user(Request $request):Response
                 'data'=>$user->getNomPrenom()))
              ->add('email', EmailType::class,array(
                 'data'=>$user->getEmail()))
-              ->add('password',PasswordType::class)
+              ->add('password',PasswordType::class,array(
+                'data'=>$user->getPassword()))
                ->add('tele', TextType::class,array(
-                'data'=>$user->getTele()))
+                'data'=>$user->getTele(),  'attr' => array('maxlength' => 10, 'minlength' => 10,)))
                 ->add('ROLES',   ChoiceType::class, array(
             'choices' => array(
                 'Administrateur' => 'ROLE_ADMIN',
@@ -418,7 +421,7 @@ $upload = new User();
 
             $pass=random_bytes(10);
 
-            $message = (new \Swift_Message('Hello Email'))
+            $message = (new \Swift_Message('email de nouveau mot de passe'))
         ->setFrom('marstouriya7@gmail.com')
         ->setTo('marstouriya6@gmail.com')
         ->setBody(bin2hex($pass));

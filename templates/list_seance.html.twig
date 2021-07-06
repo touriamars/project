@@ -47,7 +47,7 @@
                         <th>groupe</th>
                         <th>piscine</th>
                         <th>ensaignant</th>
-                         <th>jour</th>
+                         <th>date</th>
                          <th>heure de debut</th>
                           <th>heure de fin</th>
                         
@@ -64,7 +64,7 @@
                         <td>{{'groupe'~' ' ~ seance.groupe}}</td>
                         <td>{{'piscine'~' ' ~ seance.piscine}}</td>
                         <td>{{ seance.enseignant}}</td>
-                         <td>{{seance.jour}}</td>
+                         <td>{{seance.date| date('d/m/y')}}</td>
                          <td>{{seance.heuredebut|date("h:m")}}</td>
                          <td>{{seance.heurefin |date("h:m")}}</td>
 
@@ -72,10 +72,10 @@
                         <td>
                             
                                
-                            <a  onclick="myFunction('update_seance',{{seance.id}})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a  onclick="myFunction('delete_seance',{{seance.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                             <a href="" onclick="myFunction('update_seance',{{seance.id}})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                           <a href="{{path('delete_seance',{id : seance.id}) }}" onclick="myFunction('delete_seance',{{seance.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               <a href="" onclick="myFunction('absence',{{seance.id}})" class="eye" data-toggle="modal">
-                                <button class="btn btn-sm btn-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Absence</button>
+                                <button class="btn btn-sm btn-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Absence</button><a/>
                         </td>
 
                                                             </tr>

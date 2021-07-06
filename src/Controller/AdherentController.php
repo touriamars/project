@@ -59,7 +59,8 @@ class AdherentController extends AbstractController
      */
     public function list_adherent(UtulisateurRepository $var)
     {     $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-       $adherent= $var->findAll();
+        $entityManager = $this->getDoctrine()->getManager();
+        $adherent = $entityManager->getRepository(Utulisateur::class)->list();
 
       return $this->render('home2.html.twig' ,[
             'task' => $adherent ]);
@@ -339,10 +340,11 @@ public function paiement1():Response
 
      
         $ad = $entityManager->getRepository(Utulisateur::class)->find($id);
+        $nom=$ad->getNomFrancais().' '.$ad->getPrenomFrancais();
            $image=$ad->getImage();
 
              return   $this->redirectToRoute('pdf',array(
-        'id'=>$id,
+        'id'=>$nom,
 
         'date_debut'=>date_format($date, 'Y-m-d '),
         'date_fin'=> date_format($date_fin, 'Y-m-d '),
@@ -381,6 +383,9 @@ public function paiement1():Response
              $entityManager->persist($paiement);
 
              $entityManager->flush();
+              return   $this->redirectToRoute('paiement_adherent',array(
+        'id'=>$id
+    ));
 
             }
            

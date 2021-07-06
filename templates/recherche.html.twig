@@ -84,9 +84,9 @@
                        
 
                                                             </tr>
-                                                              {% set tva =+ commande.prix_ht * commande.quantite*commande.tva /100 %}
-                                                        {% set ttc =+ commande.total %}
-                                                        {% set ht  =+ commande.prix_ht * commande.quantite %}
+                                                              {% set tva = tva + commande.prix_ht * commande.quantite*commande.tva /100 %}
+                                                        {% set ttc = ttc + commande.total %}
+                                                        {% set ht  = ht+ commande.prix_ht * commande.quantite %}
 
                                                              {% endfor %}
                                                         </tbody>

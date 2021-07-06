@@ -34,6 +34,7 @@ class AbsenceRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+     
     
 
     /*

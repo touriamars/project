@@ -83,6 +83,16 @@ class UtulisateurRepository extends ServiceEntityRepository
 
 
     }
+
+     public function list()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.nom_francais', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
    /* public function recherche($nom)
     {   $entyManager=$this->getEntityManager();
 

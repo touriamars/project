@@ -42,6 +42,7 @@
                         <th>Email</th>
                        
                         <th> Numéro de telephone</th>
+                            <th>Role</th>
                         
                         <th>Actions</th>
                     </tr>
@@ -54,6 +55,16 @@
                         <td>{{user.email}}</td>
                        
                         <td>{{user.tele}}</td>
+                        <td>
+                           {% for role in user.roles %}
+                           {% if role == "ROLE_ADMIN" %}
+  Adminstrateur
+  {% else %}
+  Opérateur de saisi
+{% endif %}
+                       
+                         {% endfor%}
+                        </td>
                        
                         <td>
                             

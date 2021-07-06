@@ -19,7 +19,7 @@
 
 {% block page_contents %}
                                         
-                                        <div class="card">
+                                        <div class="card"  style='background-Color:white;margin-left:-30px; width:1100px '>
                                             <div class="card-header">
                                                <a href="#addEmployeeModal"  onclick="myFunction('ajouter_groupe','')" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un groupe</span></a>
                                                
@@ -81,7 +81,7 @@
                                        
                              </a>
                             <a href="{{path('update',{id : groupe.id}) }}" onclick="myFunction('update_groupe',{{groupe.id}})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="{{path('delete_user',{id : groupe.id}) }}" onclick="myFunction('delete_groupe',{{groupe.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="{{path('delete_groupe',{id : groupe.id}) }}" onclick="myFunction('delete_groupe',{{groupe.id}})" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             
                         </td>
 

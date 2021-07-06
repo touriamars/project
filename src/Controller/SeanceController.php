@@ -163,10 +163,10 @@ foreach ($groupes as $choice) {
       
         
     ],
-    'multiple'=>true,
+ 
     'expanded' => true,
     'label'=>false,
-    'mapped'=>false
+
 ])
                         -> add('type', ChoiceType::class, [
     'choices'  => [
@@ -203,9 +203,10 @@ foreach ($groupes as $choice) {
 
     $entityManager = $this->getDoctrine()->getManager();
     $seances = $entityManager->getRepository(Seance::class)->findAll();
+   // return new Response( $seance->getdate()->format('yy-M-d') );
 
     foreach ($seances  as  $value) {
-       if ($value->getDate()==$seance->getdate() and $value->getPiscine() == $seance->getPiscine() and( ($value->getHeureDebut() <= $seance->getHeureDebut() and $seance->getHeureDebut() <= $value->getHeureFin()) or ($value->getHeureDebut() <= $seance->getHeureFin() and $seance->getHeureFin() <= $value->getHeureFin() ) or ( $value->getHeureDebut() >= $seance->getHeureDebut() and $seance->getHeureFin() >= $value->getHeureFin()) ) ) {
+    if ($value->getDate() == $seance->getdate() and $value->getPiscine() == $seance->getPiscine() and( ($value->getHeureDebut() <= $seance->getHeureDebut() and $seance->getHeureDebut() <= $value->getHeureFin()) or ($value->getHeureDebut() <= $seance->getHeureFin() and $seance->getHeureFin() <= $value->getHeureFin() ) or ( $value->getHeureDebut() >= $seance->getHeureDebut() and $seance->getHeureFin() >= $value->getHeureFin()) ) ) {
           return   $this->render('ajouter_seance.html.twig', [
             'form' => $form->createView(),
             'error'=>'le delai invalaid'
@@ -259,7 +260,7 @@ foreach ($groupes as $choice) {
               }
                
             }*/
-            if ($request->get('etat')) {
+            if ($request->get('etat')=='oui') {
                 $seance->setEtat('oui');
             }
             else{
@@ -365,7 +366,7 @@ $choices = [];
 foreach ($groupes as $choice) {
   $choices[$choice->getLib()] =$choice->getId();
 }
-
+$etat=$seance1->getEtat();
 
          $form = $this->createFormBuilder($seance)
             
@@ -392,7 +393,8 @@ foreach ($groupes as $choice) {
                 'choices' => $choices,
       
                 
-                'label' => false 
+                'label' => false ,
+                   'data'=>$seance1->getGroupe(),
             ]  )
                    ->add('heure_debut',TimeType::class, [
                
@@ -457,10 +459,10 @@ foreach ($groupes as $choice) {
         
     ],
 
-    'multiple'=>true,
+    'multiple'=>false,
     'expanded' => true,
     'label'=>false,
-    'mapped'=>false
+      'data'=>$seance1->getEtat(),
 ])
                         -> add('type', ChoiceType::class, [
     'choices'  => [
@@ -538,35 +540,36 @@ foreach ($groupes as $choice) {
 }
          $seance1->setHeureDebut($seance->getHeureDebut());
           $seance1->setHeureFin($seance->getHeureFin());
-          $seance->setPiscine($seance->getPiscine());
-        
+          $seance1->setPiscine($seance->getPiscine());
+         $seance1->setGroupe($seance->getGroupe());
           $seance1->setJour($jour);
           $seance1->setdate($seance->getDate());
-            $seance->setType($seance->getType());
-            
-          /*  foreach ($request->get('etat') as $value) {
-              if ($value=='oui') {
-                   $seance->setEtat('oui');
-              }else{
-                $seance->setEtat('non');
+            $seance1->setType($seance->getType());
+      /*  if ($seance->getEtat()=='oui') {
+            return new Response('oui');}
+            else{
+                return new Response($seance->getEtat());
 
-              }
+              }*/
+             
+             
+              
                
-            }*/
-            if ($request->get('etat')) {
-                $seance->setEtat('oui');
+            
+         
+        if ($seance->getEtat()=='oui') {
+                $seance1->setEtat('oui');
             }
             else{
-                $seance->setEtat('non');
+                $seance1->setEtat('non');
 
               }
-        
-          $seance->setEnseignant($seance->getEnseignant());
-          $seance->setObjectif($seance->getObjectif());
-          $seance->setObjectifSuivant($seance->getObjectifSuivant());
-          $seance->setAutreInfo($seance->getAutreInfo());
-          $seance->setObservation($seance->getObservation());
-          $seance->setCodeSequence($seance->getCodeSequence());
+          $seance1->setEnseignant($seance->getEnseignant());
+          $seance1->setObjectif($seance->getObjectif());
+          $seance1->setObjectifSuivant($seance->getObjectifSuivant());
+          $seance1->setAutreInfo($seance->getAutreInfo());
+          $seance1->setObservation($seance->getObservation());
+          $seance1->setCodeSequence($seance->getCodeSequence());
           
 
              $entityManager->flush();
@@ -617,10 +620,21 @@ foreach ($groupes as $choice) {
          $adherents=[];
        foreach ( $affectation as  $value) {
 
+
+
           $adherents[]= $entityManager->getRepository(Utulisateur::class)->find($value->getIdAdherent());
      
       }
       if (isset($_POST['enregistrer'])) {
+         $absence= $entityManager->getRepository(Absence::class)->findByIdSeance($id);
+         if ($absence) {
+       foreach ($absence as $value) {
+          $entityManager->remove($value);
+$entityManager->flush();
+
+       
+       }
+         }
             foreach ($adherents as  $value) {
                 if (isset($_POST[$value->getId()])) {
                   $absence= new Absence();
